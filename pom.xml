@@ -16,14 +16,18 @@
     <java.version>11</java.version>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <!-- managed dependencies -->
+  <dependencyManagement>
+    <dependencies>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-dependencies</artifactId>
+           <version>2.3.1.RELEASE</version>
+           <type>pom</type>
+           <scope>import</scope>
+       </dependency>
+   </dependencies>
+</dependencyManagement>
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -35,6 +39,10 @@
             <release>${java.version}</release>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>     
       </plugins>
     </pluginManagement>
   </build>
