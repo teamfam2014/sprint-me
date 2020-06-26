@@ -46,4 +46,8 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <modules>
+    <module>rest-tool</module>
+  </modules>
 </project>
