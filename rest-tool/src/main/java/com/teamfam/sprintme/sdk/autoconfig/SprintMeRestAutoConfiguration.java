@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Auto configure the rest template.
  */
 @Configuration
-@ComponentScan("com.teamfam.sprintme.rest")
+@ComponentScan("com.teamfam.sprintme.sdk.rest")
 @ConditionalOnClass(RestTemplateBuilder.class)
 public class SprintMeRestAutoConfiguration {
     
