@@ -7,9 +7,14 @@ import com.teamfam.sprintme.sdk.constants.HttpScheme;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.MultiValueMap;
 
+import lombok.Builder;
+import lombok.Getter;
+
 /**
  * Rest Client data transfer object required to encapsulate the data required to send through Http.
  */
+@Getter
+@Builder
 public class RestClientDto<T> {
     private String host;
     //This is the default no port value for the URI components builder.
