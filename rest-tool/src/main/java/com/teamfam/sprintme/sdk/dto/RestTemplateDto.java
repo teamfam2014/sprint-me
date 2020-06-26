@@ -3,8 +3,8 @@ package com.teamfam.sprintme.sdk.dto;
 import java.net.URI;
 import java.util.Map;
 
-import com.teamfam.sprintme.sdk.constants.ErrorConstants;
-import com.teamfam.sprintme.sdk.constants.HttpScheme;
+import com.teamfam.sprintme.sdk.rest.constants.ErrorConstants;
+import com.teamfam.sprintme.sdk.rest.constants.HttpScheme;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;

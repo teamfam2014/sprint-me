@@ -1,4 +1,4 @@
-package com.teamfam.sprintme.sdk.constants;
+package com.teamfam.sprintme.sdk.rest.constants;
 
 /**
  * Represent the supported scheme types for the rest template.

@@ -2,7 +2,7 @@ package com.teamfam.sprintme.sdk.dto;
 
 import java.util.Map;
 
-import com.teamfam.sprintme.sdk.constants.HttpScheme;
+import com.teamfam.sprintme.sdk.rest.constants.HttpScheme;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.util.MultiValueMap;
