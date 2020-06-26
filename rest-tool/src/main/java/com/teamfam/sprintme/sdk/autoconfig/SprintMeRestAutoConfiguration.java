@@ -1,4 +1,4 @@
-package com.teamfam.sprintme.rest.autoconfig;
+package com.teamfam.sprintme.sdk.autoconfig;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.web.client.RestTemplateBuilder;
