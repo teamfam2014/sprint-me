@@ -18,6 +18,7 @@ import lombok.Getter;
 public class RestClientDto<T> {
     private String host;
     //This is the default no port value for the URI components builder.
+    @Builder.Default
     private int port = 1;
     private HttpScheme scheme;
     private String uri;
