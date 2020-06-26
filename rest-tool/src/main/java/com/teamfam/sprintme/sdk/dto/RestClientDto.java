@@ -7,6 +7,8 @@ import com.teamfam.sprintme.sdk.constants.HttpScheme;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.MultiValueMap;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +17,7 @@ import lombok.Getter;
  */
 @Getter
 @Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RestClientDto<T> {
     private String host;
     //This is the default no port value for the URI components builder.
