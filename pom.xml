@@ -15,7 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
     <mockito.version>3.3.3</mockito.version>
-    <jacoco.min.coverage>0.90</jacoco.min.coverage>
+    <jacoco.min.coverage>0.95</jacoco.min.coverage>
   </properties>
 
   <!-- managed dependencies -->
