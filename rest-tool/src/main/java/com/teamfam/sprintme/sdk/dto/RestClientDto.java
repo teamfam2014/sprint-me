@@ -25,8 +25,8 @@ public class RestClientDto<T> {
     private int port = 1;
     private HttpScheme scheme;
     private String uri;
-    private Map<String,String>headers;
-    private Map<String,String> pathParameters;
+    private Map<String,String> headers;
+    private MultiValueMap<String,String> pathParameters;
     private MultiValueMap<String,String> queryParameters;
     private T payload;
     private HttpMethod httpMethod;
