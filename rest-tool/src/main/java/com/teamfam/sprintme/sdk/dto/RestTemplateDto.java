@@ -60,7 +60,7 @@ public class RestTemplateDto {
 			return restTemplateDto;
 		}
 
-		private URI completeUri(String host, int port, HttpScheme scheme, String path, Map<String, String> pathParameters, MultiValueMap<String, String> queryParameters) {
+		private URI completeUri(String host, int port, HttpScheme scheme, String path, MultiValueMap<String, String> pathParameters, MultiValueMap<String, String> queryParameters) {
 			UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
 			return builder.host(host)
 						  .port(port)
