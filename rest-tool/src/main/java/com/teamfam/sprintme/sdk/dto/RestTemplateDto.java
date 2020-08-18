@@ -61,14 +61,18 @@ public class RestTemplateDto {
 		}
 
 		private URI completeUri(String host, int port, HttpScheme scheme, String path, MultiValueMap<String, String> pathParameters, MultiValueMap<String, String> queryParameters) {
-			UriComponentsBuilder builder = UriComponentsBuilder.newInstance();
-			return builder.host(host)
-						  .port(port)
-						  .scheme(scheme.toString().toLowerCase())
-						  .path(path)
-						  .queryParams(queryParameters)
-						  .buildAndExpand(pathParameters)
-						  .toUri();
+			UriComponentsBuilder builder = UriComponentsBuilder.newInstance().host(host)
+																			.port(port)
+																			.scheme(scheme.toString().toLowerCase())
+																			.path(path)
+																			.queryParams(queryParameters);
+			if (pathParameters != null && !pathParameters.isEmpty()){
+				return builder.buildAndExpand(pathParameters)
+							  .toUri();
+			}else{
+				return builder.build()
+							  .toUri();
+			}
 		}
 
 		private HttpEntity<?> buildHttpEntity(T payload, Map<String, String> headers) {
