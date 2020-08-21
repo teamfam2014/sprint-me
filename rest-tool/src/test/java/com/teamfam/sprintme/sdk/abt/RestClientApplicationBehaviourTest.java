@@ -17,6 +17,7 @@ import com.teamfam.sprintme.sdk.rest.client.RestClientSdk;
 import com.teamfam.sprintme.sdk.rest.constants.HttpScheme;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,6 +72,53 @@ public class RestClientApplicationBehaviourTest{
 		assertNotNull(account.getLastName());
 	}
 	
+	@DisplayName("Loaded Http Get")
+	@Test
+	public void testLoadedHttpGet() throws IOException{
+		validateRestOperation()
+		//ARRANGE
+		RestClientDto<?> loadedGetRequest = loadedHttpGet();
+		String fileName = "/stubs/account.json";
+		String url = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/account/{id}?paid=true").encode()
+																						   .buildAndExpand(simplePathParameters())
+																						   .toUriString();
+		String simpleGetResponseStub = FileUtils.readFileToString(new File(classpath + "/" + fileName), "UTF-8");
+		mockRestServiceServer.expect(once(), requestTo(url))
+								   .andRespond(withSuccess(simpleGetResponseStub,MediaType.APPLICATION_JSON));
+		//ACT
+		Account account = restClientSdk.send(loadedGetRequest, Account.class);
+		//ASSERT
+		mockRestServiceServer.verify();		
+		assertNotNull(account);
+		assertNotNull(account.getAccountId());
+		assertNotNull(account.getFirstName());
+		assertNotNull(account.getLastName());
+	}
+
+	private void validateRestOperation(RestClientDto<?> request,String fileName,String httpUrlString,MultiValueMap<String,String> pathParameters) throws IOException{
+		//ARRANGE
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(httpUrlString).encode();
+		String url = null;
+		if (pathParameters != null && !pathParameters.isEmpty()){
+			url = builder.buildAndExpand(simplePathParameters())
+						 .toUriString();
+		}else{
+			url = builder.build()
+						 .toUriString();
+		}
+		String simpleGetResponseStub = FileUtils.readFileToString(new File(classpath + "/" + fileName), "UTF-8");
+		mockRestServiceServer.expect(once(), requestTo(url))
+							 .andRespond(withSuccess(simpleGetResponseStub,MediaType.APPLICATION_JSON));
+		//ACT
+		Account account = restClientSdk.send(request, Account.class);
+		//ASSERT
+		mockRestServiceServer.verify();		
+		assertNotNull(account);
+		assertNotNull(account.getAccountId());
+		assertNotNull(account.getFirstName());
+		assertNotNull(account.getLastName());		
+	}
+
 	private RestClientDto<?> simpleHttpGet(){
 		return RestClientDto.builder().headers(simpleHeaders())
 											.host("localhost")
@@ -82,6 +130,18 @@ public class RestClientApplicationBehaviourTest{
 											.build();
 	}
 	
+	private RestClientDto<?> loadedHttpGet(){
+		return RestClientDto.builder().headers(simpleHeaders())
+											.host("localhost")
+											.port(8080)
+											.scheme(HttpScheme.HTTP)
+											.httpMethod(HttpMethod.GET)
+											.uri("/account/{id}")
+											.pathParameters(simplePathParameters())
+											.queryParameters(simpleQueryParameters())
+											.build();
+	}
+
 	private Map<String,String> simpleHeaders(){
 		Map<String,String> headers = new HashMap<String,String>();
 		headers.put("tid", UUID.randomUUID().toString());
@@ -93,5 +153,11 @@ public class RestClientApplicationBehaviourTest{
 		MultiValueMap<String,String> pathParameters = new LinkedMultiValueMap<String,String>();
 		pathParameters.add("id", "1234567890");
 		return pathParameters;
+	}
+
+	private MultiValueMap<String,String> simpleQueryParameters(){
+		MultiValueMap<String,String> queryParameters = new LinkedMultiValueMap<String,String>();
+		queryParameters.add("paid", Boolean.TRUE.toString());
+		return queryParameters;
 	}
 }
