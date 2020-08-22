@@ -47,10 +47,7 @@ public class RestClientApplicationBehaviourTest{
 	@Autowired
 	private MockRestServiceServer mockRestServiceServer;
 	
-	/**
-	 * A simple Http Get that retrieves a JSON document from a rest server and 
-	 * produces a plain old java object as a response.
-	 */	
+	@DisplayName("Simple Http Get")
 	@Test
 	public void testPlainHttpGet() throws IOException{
 		validateRestOperation(simpleHttpGet(),"/stubs/account.json","http://localhost:8080/account/{id}",simplePathParameters());
