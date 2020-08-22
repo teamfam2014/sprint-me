@@ -75,24 +75,7 @@ public class RestClientApplicationBehaviourTest{
 	@DisplayName("Loaded Http Get")
 	@Test
 	public void testLoadedHttpGet() throws IOException{
-		validateRestOperation()
-		//ARRANGE
-		RestClientDto<?> loadedGetRequest = loadedHttpGet();
-		String fileName = "/stubs/account.json";
-		String url = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/account/{id}?paid=true").encode()
-																						   .buildAndExpand(simplePathParameters())
-																						   .toUriString();
-		String simpleGetResponseStub = FileUtils.readFileToString(new File(classpath + "/" + fileName), "UTF-8");
-		mockRestServiceServer.expect(once(), requestTo(url))
-								   .andRespond(withSuccess(simpleGetResponseStub,MediaType.APPLICATION_JSON));
-		//ACT
-		Account account = restClientSdk.send(loadedGetRequest, Account.class);
-		//ASSERT
-		mockRestServiceServer.verify();		
-		assertNotNull(account);
-		assertNotNull(account.getAccountId());
-		assertNotNull(account.getFirstName());
-		assertNotNull(account.getLastName());
+		validateRestOperation(loadedHttpGet(),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true",simplePathParameters());
 	}
 
 	private void validateRestOperation(RestClientDto<?> request,String fileName,String httpUrlString,MultiValueMap<String,String> pathParameters) throws IOException{
