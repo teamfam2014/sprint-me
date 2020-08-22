@@ -53,23 +53,7 @@ public class RestClientApplicationBehaviourTest{
 	 */	
 	@Test
 	public void testPlainHttpGet() throws IOException{
-		//ARRANGE
-		RestClientDto<?> simpleGetRequest = simpleHttpGet();
-		String fileName = "/stubs/account.json";
-		String url = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/account/{id}").encode()
-																						   .buildAndExpand(simplePathParameters())
-																						   .toUriString();
-		String simpleGetResponseStub = FileUtils.readFileToString(new File(classpath + "/" + fileName), "UTF-8");
-		mockRestServiceServer.expect(once(), requestTo(url))
-								   .andRespond(withSuccess(simpleGetResponseStub,MediaType.APPLICATION_JSON));
-		//ACT
-		Account account = restClientSdk.send(simpleGetRequest, Account.class);
-		//ASSERT
-		mockRestServiceServer.verify();		
-		assertNotNull(account);
-		assertNotNull(account.getAccountId());
-		assertNotNull(account.getFirstName());
-		assertNotNull(account.getLastName());
+		validateRestOperation(simpleHttpGet(),"/stubs/account.json","http://localhost:8080/account/{id}",simplePathParameters());
 	}
 	
 	@DisplayName("Loaded Http Get")
