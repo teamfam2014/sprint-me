@@ -2,8 +2,8 @@ pom-root/.project
 .project
 .settings/org.eclipse.core.resources.prefs
 .settings/org.eclipse.m2e.core.prefs
-rest-tool/.mvn/wrapper/maven-wrapper.jar
-rest-tool/.mvn/wrapper/maven-wrapper.properties
-rest-tool/.mvn/wrapper/MavenWrapperDownloader.java
-rest-tool/.mvn/wrapper/maven-wrapper.jar
+rest-tool/.mvn/*
 grpc-tool/target/*
+grpc-tool/.classpath
+grpc-tool/.factorypath
+grpc-tool/.settings/*
