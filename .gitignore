@@ -6,3 +6,4 @@ rest-tool/.mvn/wrapper/maven-wrapper.jar
 rest-tool/.mvn/wrapper/maven-wrapper.properties
 rest-tool/.mvn/wrapper/MavenWrapperDownloader.java
 rest-tool/.mvn/wrapper/maven-wrapper.jar
+grpc-tool/target/*
