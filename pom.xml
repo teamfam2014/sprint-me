@@ -1,147 +1,280 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
   <modelVersion>4.0.0</modelVersion>
-
+    
   <groupId>com.teamfam.sprintme</groupId>
+    
   <artifactId>sprint-me-parent</artifactId>
+    
   <version>1.0.0.0-SNAPSHOT</version>
+    
   <packaging>pom</packaging>
-
+    
   <name>Sprint Me Parent</name>
-
+    
   <properties>
+        
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
     <java.version>11</java.version>
+        
     <mockito.version>3.3.3</mockito.version>
+        
     <jacoco.min.coverage>0.95</jacoco.min.coverage>
+      
   </properties>
-
+    
   <!-- managed dependencies -->
+    
   <dependencyManagement>
+        
     <dependencies>
-       <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-dependencies</artifactId>
-           <version>2.3.1.RELEASE</version>
-           <type>pom</type>
-           <scope>import</scope>
-       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+             
       <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.10</version>
-      </dependency>      
-      <!-- test dependencies -->
-      <!-- https://mvnrepository.com/artifact/org.junit/junit-bom -->
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>5.6.2</version>
+                   
+        <groupId>org.springframework.boot</groupId>
+                   
+        <artifactId>spring-boot-dependencies</artifactId>
+                   
+        <version>2.3.1.RELEASE</version>
+                   
         <type>pom</type>
+                   
         <scope>import</scope>
+               
       </dependency>
+            
+      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            
+      <dependency>
+                
+        <groupId>org.apache.commons</groupId>
+                
+        <artifactId>commons-lang3</artifactId>
+                
+        <version>3.10</version>
+              
+      </dependency>
+            
+      
+      <!-- test dependencies -->
+            
+      <!-- https://mvnrepository.com/artifact/org.junit/junit-bom -->
+            
+      <dependency>
+                
+        <groupId>org.junit</groupId>
+                
+        <artifactId>junit-bom</artifactId>
+                
+        <version>5.6.2</version>
+                
+        <type>pom</type>
+                
+        <scope>import</scope>
+              
+      </dependency>
+            
       <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+            
       <dependency>
+                
         <groupId>org.mockito</groupId>
+                
         <artifactId>mockito-junit-jupiter</artifactId>
+                
         <version>${mockito.version}</version>
+              
       </dependency>
+            
       <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+            
       <dependency>
+                
         <groupId>commons-io</groupId>
+                
         <artifactId>commons-io</artifactId>
+                
         <version>2.6</version>
+                
         <scope>test</scope>
+              
       </dependency>
-   </dependencies>
-</dependencyManagement>
-
-<dependencies>
-  <dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-engine</artifactId>
-    <scope>test</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-core</artifactId>
-    <scope>test</scope>
-  </dependency> 
-  <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-junit-jupiter</artifactId>
-    <version>${mockito.version}</version>
-    <scope>test</scope>
-  </dependency>
-</dependencies>
-
+         
+    </dependencies>
+    
+  </dependencyManagement>
+  
+  <dependencies>
+      
+    <dependency>
+          
+      <groupId>org.junit.jupiter</groupId>
+          
+      <artifactId>junit-jupiter-engine</artifactId>
+          
+      <scope>test</scope>
+        
+    </dependency>
+      
+    <dependency>
+          
+      <groupId>org.mockito</groupId>
+          
+      <artifactId>mockito-core</artifactId>
+          
+      <scope>test</scope>
+        
+    </dependency>
+     
+  
+    <dependency>
+          
+      <groupId>org.mockito</groupId>
+          
+      <artifactId>mockito-junit-jupiter</artifactId>
+          
+      <version>${mockito.version}</version>
+          
+      <scope>test</scope>
+        
+    </dependency>
+    
+  </dependencies>
+    
   <build>
+        
     <pluginManagement>
+            
       <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+            
       <plugins>
+                
         <plugin>
+                    
           <artifactId>maven-compiler-plugin</artifactId>
+                    
           <version>3.8.0</version>
+                    
           <configuration>
+                        
             <release>${java.version}</release>
+                      
           </configuration>
+                  
         </plugin>
+                
         <plugin>
+                    
           <artifactId>maven-surefire-plugin</artifactId>
+                    
           <version>2.22.2</version>
+                  
         </plugin>
+                
         <plugin>
+                    
           <groupId>org.springframework.boot</groupId>
+                    
           <artifactId>spring-boot-maven-plugin</artifactId>
+                  
         </plugin>
+                
         <!-- Jacoco Code Coverage -->
+                
         <plugin>
+                    
           <groupId>org.jacoco</groupId>
+                    
           <artifactId>jacoco-maven-plugin</artifactId>
+                    
           <version>0.8.5</version>
+                    
           <executions>
-              <execution>
-                  <goals>
-                      <goal>prepare-agent</goal>
-                  </goals>
-              </execution>
-              <execution>
-                  <id>report</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                      <goal>report</goal>
-                  </goals>
-              </execution>
-              <execution>
-                <id>jacoco-check</id>
-                <goals>
-                    <goal>check</goal>
-                </goals>
-                <configuration>
-                    <rules>
-                        <rule>
-                            <element>PACKAGE</element>
-                            <limits>
-                                <limit>
-                                    <counter>LINE</counter>
-                                    <value>COVEREDRATIO</value>
-                                    <minimum>${jacoco.min.coverage}</minimum>
-                                </limit>
-                            </limits>
-                        </rule>
-                    </rules>
-                </configuration>
-            </execution>              
+                          
+            <execution>
+                                
+              <goals>
+                                      
+                <goal>prepare-agent</goal>
+                                  
+              </goals>
+                            
+            </execution>
+                          
+            <execution>
+                                
+              <id>report</id>
+                                
+              <phase>prepare-package</phase>
+                                
+              <goals>
+                                      
+                <goal>report</goal>
+                                  
+              </goals>
+                            
+            </execution>
+                          
+            <execution>
+                              
+              <id>jacoco-check</id>
+                              
+              <goals>
+                                    
+                <goal>check</goal>
+                                
+              </goals>
+                              
+              <configuration>
+                                    
+                <rules>
+                                          
+                  <rule>
+                                                
+                    <element>PACKAGE</element>
+                                                
+                    <limits>
+                                                      
+                      <limit>
+                                                            
+                        <counter>LINE</counter>
+                                                            
+                        <value>COVEREDRATIO</value>
+                                                            
+                        <minimum>${jacoco.min.coverage}</minimum>
+                                                        
+                      </limit>
+                                                  
+                    </limits>
+                                            
+                  </rule>
+                                      
+                </rules>
+                                
+              </configuration>
+                          
+            </execution>
+                          
+          
           </executions>
-        </plugin>             
+                  
+        </plugin>
+                     
+      
       </plugins>
+          
     </pluginManagement>
+      
   </build>
-
+    
   <modules>
+        
     <module>rest-tool</module>
+        
+    <module>grpc-tool</module>
+      
   </modules>
+  
 </project>
