@@ -4,7 +4,7 @@ public class GrpcClientImpl extends AbstractGrpcClient {
 
     @Override
     public <STUB> STUB invokeStub(Class<STUB> stubType) {
-        return null;
+        return null; 
     }
     
 }
