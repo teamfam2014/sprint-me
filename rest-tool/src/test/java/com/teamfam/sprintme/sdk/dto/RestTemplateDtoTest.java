@@ -164,8 +164,7 @@ public class RestTemplateDtoTest {
 	
 	private void assertValidation(RestClientDto<?> restClientDto, String expectedMsg) {
 		try {
-			RestTemplateDto restTemplateDto = new RestTemplateDto.Builder(restClientDto)
-				 .build();
+			new RestTemplateDto.Builder(restClientDto).build();
 			fail("No Exception Thrown");
 		}catch(IllegalArgumentException iae) {
 			//ASSERT - illegal argument exception thrown
