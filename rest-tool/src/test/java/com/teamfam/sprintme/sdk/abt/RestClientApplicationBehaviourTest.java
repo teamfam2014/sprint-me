@@ -59,42 +59,6 @@ public class RestClientApplicationBehaviourTest{
 		validateRestOperation(loadedHttpGet(),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true",simplePathParameters());
 	}
 
-	@DisplayName("Simple Http Post")
-	@Test
-	public void simpleHttpPost(){
-
-	}
-
-	@DisplayName("Loaded Http Post")
-	@Test
-	public void loadedHttpPost(){
-		
-	}	
-
-	@DisplayName("Simple Http Put")
-	@Test
-	public void simpleHttpPut(){
-		
-	}
-
-	@DisplayName("Loaded Http Put")
-	@Test
-	public void loadedHttpPut(){
-		
-	}
-
-	@DisplayName("Simple Http Delete")
-	@Test
-	public void simpleHttpDelete(){
-		
-	}
-
-	@DisplayName("Loaded Http Delete")
-	@Test
-	public void loadedHttpDelete(){
-		
-	}
-
 	private void validateRestOperation(RestClientDto<?> request,String fileName,String httpUrlString,MultiValueMap<String,String> pathParameters) throws IOException{
 		//ARRANGE
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(httpUrlString).encode();
