@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("com.teamfam.sprintme.sdk.rest")
 @ConditionalOnClass(RestTemplateBuilder.class)
-public class SprintMeRestAutoConfiguration {
+public class SprintMeRestTemplateAutoConfiguration {
     
 }
