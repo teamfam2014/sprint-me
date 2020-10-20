@@ -51,28 +51,50 @@ public class RestClientApplicationBehaviourTest{
 	@DisplayName("Simple Http Get")
 	@Test
 	public void testPlainHttpGet() throws IOException{
-		validateRestOperation(simpleHttpGet(),"/stubs/account.json","http://localhost:8080/account/{id}");
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.GET,RestClientDtoType.SIMPLE),"/stubs/account.json","http://localhost:8080/account/{id}");
 	}
 	
 	@DisplayName("Loaded Http Get")
 	@Test
 	public void testLoadedHttpGet() throws IOException{
-		validateRestOperation(loadedHttpGet(),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.GET,RestClientDtoType.ALL),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
 	}
 
 	@DisplayName("Simple Http Post")
 	@Test
 	public void testSimpleHttpPost() throws IOException{
-		validateRestOperation(simpleHttpPost(),"/stubs/account.json","http://localhost:8080/account/{id}");
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.POST,RestClientDtoType.SIMPLE),"/stubs/account.json","http://localhost:8080/account/{id}");
 	}
 
 	@DisplayName("Loaded Http Post")
 	@Test
 	public void testLoadedHttpPost() throws IOException{
-		validateRestOperation(loadedHttpPost(),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.POST,RestClientDtoType.ALL),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
 	}	
 
-	
+	/**@DisplayName("Simple Http Put")
+	@Test
+	public void testSimpleHttpPut(){
+		
+	}
+
+	@DisplayName("Loaded Http Put")
+	@Test
+	public void testLoadedHttpPut(){
+		
+	}
+
+	@DisplayName("Simple Http Delete")
+	@Test
+	public void testSimpleHttpDelete(){
+		
+	}
+
+	@DisplayName("Loaded Http Delete")
+	@Test
+	public void testLoadedHttpDelete(){
+		
+	}*/
 
 	private void validateRestOperation(RestClientDto<?> request,String fileName,String httpUrlString) throws IOException{
 		//ARRANGE
@@ -104,52 +126,16 @@ public class RestClientApplicationBehaviourTest{
 		assertNotNull(account.getLastName());		
 	}
 
-	private RestClientDto<?> simpleHttpGet(){
-		return RestClientDto.builder().headers(simpleHeaders())
-											.host("localhost")
-											.port(8080)
-											.scheme(HttpScheme.HTTP)
-											.httpMethod(HttpMethod.GET)
-											.uri("/account/{id}")
-											.pathParameters(simplePathParameters())
-											.build();
-	}
-	
-	private RestClientDto<?> loadedHttpGet(){
-		return RestClientDto.builder().headers(simpleHeaders())
-											.host("localhost")
-											.port(8080)
-											.scheme(HttpScheme.HTTP)
-											.httpMethod(HttpMethod.GET)
-											.uri("/account/{id}")
-											.pathParameters(simplePathParameters())
-											.queryParameters(simpleQueryParameters())
-											.build();
-	}
-
-	private RestClientDto<?> simpleHttpPost() throws IOException{
-		return RestClientDto.builder().headers(simpleHeaders())
-											.host("localhost")
-											.port(8080)
-											.scheme(HttpScheme.HTTP)
-											.httpMethod(HttpMethod.POST)
-											.uri("/account/{id}")
-											.pathParameters(simplePathParameters())
-											.payload(simplePayload())
-											.build();
-	}
-	
-	private RestClientDto<?> loadedHttpPost() throws IOException{
-		return RestClientDto.builder().headers(simpleHeaders())
-											.host("localhost")
-											.port(8080)
-											.scheme(HttpScheme.HTTP)
-											.httpMethod(HttpMethod.POST)
-											.uri("/account/{id}")
-											.pathParameters(simplePathParameters())
-											.queryParameters(simpleQueryParameters())
-											.payload(simplePayload())
-											.build();
+	private RestClientDto<?> getRestClientDto(HttpScheme httpScheme, HttpMethod httpMethod, RestClientDtoType restClientDtoType) throws IOException{
+		RestClientDto.RestClientDtoBuilder<Object> builder = restClientDtoType.getRestClientDto(httpScheme,httpMethod);
+		switch(httpMethod){
+			case GET:
+				break;
+			default:
+				builder.payload(simplePayload());
+				break;
+		}
+		return builder.build();
 	}
 
 	private String simplePayload() throws IOException{
@@ -157,22 +143,50 @@ public class RestClientApplicationBehaviourTest{
 		return payload;
 	}
 
-	private Map<String,String> simpleHeaders(){
-		Map<String,String> headers = new HashMap<String,String>();
-		headers.put("tid", UUID.randomUUID().toString());
-		headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-		return headers;
-	}
-	
 	private MultiValueMap<String,String> simplePathParameters(){
 		MultiValueMap<String,String> pathParameters = new LinkedMultiValueMap<String,String>();
 		pathParameters.add("id", "1234567890");
 		return pathParameters;
 	}
 
-	private MultiValueMap<String,String> simpleQueryParameters(){
-		MultiValueMap<String,String> queryParameters = new LinkedMultiValueMap<String,String>();
-		queryParameters.add("paid", Boolean.TRUE.toString());
-		return queryParameters;
+	private enum RestClientDtoType{
+		SIMPLE,
+		ALL{
+			@Override
+			public RestClientDto.RestClientDtoBuilder<Object> getRestClientDto(HttpScheme httpScheme, HttpMethod httpMethod) throws IOException{
+				RestClientDto.RestClientDtoBuilder<Object> fullRestClientDto = super.getRestClientDto(httpScheme,httpMethod);
+				fullRestClientDto.queryParameters(simpleQueryParameters());
+				return fullRestClientDto;
+			}
+		};
+
+		public RestClientDto.RestClientDtoBuilder<Object> getRestClientDto(HttpScheme httpScheme, HttpMethod httpMethod) throws IOException{
+			return RestClientDto.builder().headers(simpleHeaders())
+			.host("localhost")
+			.port(8080)
+			.scheme(httpScheme)
+			.httpMethod(httpMethod)
+			.uri("/account/{id}")
+			.pathParameters(simplePathParameters());
+		}
+
+		public MultiValueMap<String,String> simplePathParameters(){
+			MultiValueMap<String,String> pathParameters = new LinkedMultiValueMap<String,String>();
+			pathParameters.add("id", "1234567890");
+			return pathParameters;
+		}
+	
+		public MultiValueMap<String,String> simpleQueryParameters(){
+			MultiValueMap<String,String> queryParameters = new LinkedMultiValueMap<String,String>();
+			queryParameters.add("paid", Boolean.TRUE.toString());
+			return queryParameters;
+		}
+
+		private Map<String,String> simpleHeaders(){
+			Map<String,String> headers = new HashMap<String,String>();
+			headers.put("tid", UUID.randomUUID().toString());
+			headers.put("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+			return headers;
+		}
 	}
 }
