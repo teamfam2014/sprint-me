@@ -72,29 +72,29 @@ public class RestClientApplicationBehaviourTest{
 		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.POST,RestClientDtoType.ALL),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
 	}	
 
-	/**@DisplayName("Simple Http Put")
+	@DisplayName("Simple Http Put")
 	@Test
-	public void testSimpleHttpPut(){
-		
+	public void testSimpleHttpPut()throws IOException{
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.PUT,RestClientDtoType.SIMPLE),"/stubs/account.json","http://localhost:8080/account/{id}");
 	}
 
 	@DisplayName("Loaded Http Put")
 	@Test
-	public void testLoadedHttpPut(){
-		
+	public void testLoadedHttpPut()throws IOException{
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.PUT,RestClientDtoType.ALL),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
 	}
 
 	@DisplayName("Simple Http Delete")
 	@Test
-	public void testSimpleHttpDelete(){
-		
+	public void testSimpleHttpDelete() throws IOException{
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.DELETE,RestClientDtoType.SIMPLE),"/stubs/account.json","http://localhost:8080/account/{id}");
 	}
 
 	@DisplayName("Loaded Http Delete")
 	@Test
-	public void testLoadedHttpDelete(){
-		
-	}*/
+	public void testLoadedHttpDelete() throws IOException{
+		validateRestOperation(getRestClientDto(HttpScheme.HTTP,HttpMethod.DELETE,RestClientDtoType.ALL),"/stubs/account.json","http://localhost:8080/account/{id}?paid=true");
+	}
 
 	private void validateRestOperation(RestClientDto<?> request,String fileName,String httpUrlString) throws IOException{
 		//ARRANGE
